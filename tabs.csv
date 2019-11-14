@@ -1,0 +1,3 @@
+"Name", "Type", "Script", "CSV"
+"Permissions","Text_Entry", "CSV/permissions.csv"
+"UFW Rules", "Text_Entry", "CSV/UFW.csv"
