@@ -1,0 +1,4 @@
+"type","text","row","column","padx","pady","script","description"
+"label","File Location:",0,0,15,15,"","File Location Label"
+"entry","",0,1,15,15,"","File Location Entry"
+"button","Next",3,0,15,15,"Next Button"
