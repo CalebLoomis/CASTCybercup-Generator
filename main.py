@@ -14,7 +14,7 @@ def linux_distribution():
 
 if (__name__ == "__main__"):
     TABS_FILE = 'CSV/tabs.csv'
-    WIDTH = 500
+    WIDTH = 600
     HEIGHT = 300
     TABS_LIST = CSV_reader.loadCSV(TABS_FILE)
 

@@ -1,5 +1,5 @@
 from Tkinter import *
-import ttk, CSV_reader
+import ttk, CSV_reader, tkFileDialog
 
 
 
@@ -64,14 +64,30 @@ class GuiHandler:
         button = Button(self.screen, text=pack_text)
         button.grid(row=my_row, column=my_col)
 
-    #Grid Button without parent specified
+    #Grid Button with parent specified
     def grid_Button(self, pack_text, my_row, my_col, parent):
         button = Button(parent, text=pack_text)
         button.grid(row=my_row, column=my_col)
 
+    #Grid Button with both parent and padding specified
     def grid_Button(self, pack_text, my_row, my_col, pad_x, pad_y, parent):
         button = Button(parent, text=pack_text)
+        button.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
+
+    #Grid button with command without parent
+    def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col):
+        button = Button(self.screen, text=pack_text, command=lambda: self.run_code(pack_command))
         button.grid(row=my_row, column=my_col)
+
+    #Grid button with command with parent
+    def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col,parent):
+        button = Button(parent, text=pack_text, command=lambda: self.run_code(pack_command))
+        button.grid(row=my_row, column=my_col)
+
+    #Grid button with command, parent and padding
+    def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col, pad_x, pad_y, parent):
+        button = Button(parent, text=pack_text, command=lambda: self.run_code(pack_command))
+        button.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
 
     def newline_Button(self, pack_text):
         button = Button(self.screen, text=pack_text)
@@ -80,10 +96,6 @@ class GuiHandler:
     def button_With_Command(self, pack_text, pack_command):
         button = Button(self.screen, text=pack_text, command=lambda: self.run_code(pack_command))
         button.pack()
-
-    def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col):
-        button = Button(self.screen, text=pack_text, command=lambda: self.run_code(pack_command))
-        button.grid(row=my_row, column=my_col)
 
     def left_Button(self, pack_text):
         button = Button(self.screen, text=pack_text)
@@ -101,13 +113,23 @@ class GuiHandler:
         button = Button(self.screen, text=pack_text, command=lambda: self.run_code(pack_command))
         button.pack(side=RIGHT)
 
+    #Event on tab switch
+    def on_tab_selected(self, event):
+        selected_tab = event.widget.select()
+        tab_text = event.widget.tab(selected_tab, "text")
+
+    def file_selection_box(self):
+        #print("I've reached this point.")
+        self.root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
+        return (self.root.filename)
+
     def add_tabs(self, tabs):
         tab_parent=ttk.Notebook()
 
             #try:
         for tab in tabs:
             new_tab = ttk.Frame(tab_parent)
-            print (tab)
+            #print (tab)
             tab_file = tab['csv']
             tab_infos = CSV_reader.loadCSV(tab_file)
 
@@ -151,11 +173,17 @@ class GuiHandler:
                     #print ("Reached Entry")
                     self.grid_Entry(tab_row, tab_col, tab_padx, tab_pady, new_tab)
 
-                elif (tab_type == "button" and can_create):
+                elif (tab_type == "useless_button" and can_create):
                     self.grid_Button(tab_text, tab_row, tab_col, tab_padx, tab_pady, new_tab)
+
+                elif (tab_type == "button" and can_create):
+                    print(tab_script)
+                    self.grid_Button_With_Command(tab_text, tab_script, tab_row, tab_col, tab_padx, tab_pady, new_tab)
 
             #print(tab)
             tab_parent.add(new_tab, text=tab['name'])
+
+        tab_parent.bind("<<NotebookTabChanged>>", self.on_tab_selected)
         tab_parent.pack(expand=1, fill='both')
 
 
