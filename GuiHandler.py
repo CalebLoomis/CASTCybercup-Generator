@@ -12,17 +12,38 @@ class GuiHandler:
         self.root = Tk()
         self.screen = Frame(self.root)
         self.screen.pack()
+        self.grid_array=list()
 
+    def fill_array(self, row, col, thing):
+        new_array=list()
+        for i in range (row + 1):
+            try:
+                new_array.append(self.grid_array[i])
+            except:
+                new_array.append(list())
 
+            for j in range (col + 1):
+                try:
+                    new_array[i].append(self.grid_array[i][j])
+                except:
+                    new_array[i].append(None)
 
+        new_array[row] [col] = thing
+        self.grid_array = new_array
+
+    #Sets the title of the
     def set_title(self, title_text):
         self.root.title(title_text)
 
     def set_dimensions(self, width, height):
         self.root.geometry(str(width) + "x" + str(height))
 
+    #Tries to execute file. Failing that, will attempt to run a cmd ad-hoc
     def run_code(self, cmd):
-        exec(cmd)
+        try:
+            execfile(cmd)
+        except:
+            exec(cmd)
 
     def pack_Label(self, pack_text):
         label = Label(self.screen, text=pack_text)
@@ -32,61 +53,73 @@ class GuiHandler:
     #Grid Label without parent specified
     def grid_Label(self, pack_text, my_row, my_col):
         label = Label(self.screen, text=pack_text)
+        self.fill_array(my_row, my_col, label)
         label.grid(row=my_row, column=my_col)
 
     #Grid Label with parent specified
     def grid_Label(self, pack_text, my_row, my_col, parent):
         label = Label(parent, text=pack_text)
+        self.fill_array(my_row, my_col, label)
         label.grid(row=my_row, column=my_col)
 
     #Grid Label with parent and padding specified
     def grid_Label(self, pack_text, my_row, my_col, pad_x, pad_y, parent):
         label = Label(parent, text=pack_text)
+        self.fill_array(my_row, my_col, label)
         label.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
 
     #Grid Entry Box without parent specified
     def grid_Entry(self, my_row, my_col):
         label = Entry(self.screen)
+        self.fill_array(my_row, my_col, label)
         label.grid(row=my_row, column=my_col)
 
     #Grid Entry Box with parent specified
     def grid_Entry(self, my_row, my_col, parent):
         label = Entry(parent)
+        self.fill_array(my_row, my_col, label)
         label.grid(row=my_row, column=my_col)
 
     #Grid Entry Box with parent and padding specified
     def grid_Entry(self, my_row, my_col, pad_x, pad_y, parent):
         label = Entry(parent)
+        self.fill_array(my_row, my_col, label)
         label.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
 
     #Grid Button without parent specified
     def grid_Button(self, pack_text, my_row, my_col):
         button = Button(self.screen, text=pack_text)
+        self.fill_array(my_row, my_col, button)
         button.grid(row=my_row, column=my_col)
 
     #Grid Button with parent specified
     def grid_Button(self, pack_text, my_row, my_col, parent):
         button = Button(parent, text=pack_text)
+        self.fill_array(my_row, my_col, button)
         button.grid(row=my_row, column=my_col)
 
     #Grid Button with both parent and padding specified
     def grid_Button(self, pack_text, my_row, my_col, pad_x, pad_y, parent):
         button = Button(parent, text=pack_text)
+        self.fill_array(my_row, my_col, button)
         button.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
 
     #Grid button with command without parent
     def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col):
         button = Button(self.screen, text=pack_text, command=lambda: self.run_code(pack_command))
+        self.fill_array(my_row, my_col, button)
         button.grid(row=my_row, column=my_col)
 
     #Grid button with command with parent
     def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col,parent):
         button = Button(parent, text=pack_text, command=lambda: self.run_code(pack_command))
+        self.fill_array(my_row, my_col, button)
         button.grid(row=my_row, column=my_col)
 
     #Grid button with command, parent and padding
     def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col, pad_x, pad_y, parent):
         button = Button(parent, text=pack_text, command=lambda: self.run_code(pack_command))
+        self.fill_array(my_row, my_col, button)
         button.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
 
     def newline_Button(self, pack_text):
@@ -167,6 +200,7 @@ class GuiHandler:
 
                 if (tab_type == "label" and can_create):
                     #print ("Reached Labeling")
+
                     self.grid_Label(tab_text, tab_row, tab_col, tab_padx, tab_pady, new_tab)
 
                 elif (tab_type == "entry" and can_create):
@@ -186,9 +220,14 @@ class GuiHandler:
         tab_parent.bind("<<NotebookTabChanged>>", self.on_tab_selected)
         tab_parent.pack(expand=1, fill='both')
 
+    def build_label(self):
+        pass
 
     def run(self):
         self.screen.mainloop()
 
     def stop(self):
         self.screen.destroy()
+
+    def change_label(self, row, col, new_text):
+        self.grid_array[row][col]['text'] = new_text
