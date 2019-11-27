@@ -1,13 +1,13 @@
 from Tkinter import *
 import ttk, CSV_reader, tkFileDialog
 
-grid_array = list()
+GUI_grid = list()
 
 class GuiHandler:
 
 
     def __init__ (self):
-        global grid_array
+        global GUI_grid
         row_counter = 0
         col_counter = 0
         self.root = Tk()
@@ -15,21 +15,22 @@ class GuiHandler:
         self.screen.pack()
 
     def fill_array(self, row, col, thing):
+        global GUI_grid
         new_array=list()
         for i in range (row + 1):
             try:
-                new_array.append(grid_array[i])
+                new_array.append(GUI_grid[i])
             except:
                 new_array.append(list())
 
             for j in range (col + 1):
                 try:
-                    new_array[i].append(grid_array[i][j])
+                    new_array[i].append(GUI_grid[i][j])
                 except:
                     new_array[i].append(None)
 
         new_array[row] [col] = thing
-        grid_array = new_array
+        GUI_grid = new_array
 
     #Sets the title of the
     def set_title(self, title_text):
@@ -46,26 +47,27 @@ class GuiHandler:
                 #TODO: setup run_code to accept global and local vars
                 #exec(code, global_vars, local_vars)
                 exec(code, globals())
-        except:
+        except IOError:
             try:
                 exec(cmd)
-            except:
+            except NameError:
                 print("Error. " + cmd + " not a file or python command.")
 
     #Run_code with knowledge of its position.
     def run_code(self, cmd, x, y):
         globals()["x_pos"] = x
         globals()["y_pos"] = y
+        globals()["tkinterobj"] = self
         try:
             with open (cmd) as c:
                 code = compile(c.read(), cmd, 'exec')
                 #TODO: setup run_code to accept global and local vars
                 #exec(code, global_vars, local_vars)
                 exec(code, globals())
-        except:
+        except IOError:
             try:
                 exec(cmd)
-            except:
+            except NameError:
                 print("Error. " + cmd + " not a file or python command.")
 
     def pack_Label(self, pack_text):
@@ -254,4 +256,4 @@ class GuiHandler:
         self.screen.destroy()
 
     def change_label(self, row, col, new_text):
-        self.grid_array[row][col]['text'] = new_text
+        self.GUI_grid[row][col]['text'] = new_text
