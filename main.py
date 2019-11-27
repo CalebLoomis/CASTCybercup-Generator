@@ -1,6 +1,5 @@
 import platform
 import sys, GuiHandler, CSV_reader
-sys.dont_write_bytecode = True
 
 def linux_distribution():
     output = False
