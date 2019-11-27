@@ -1,3 +1,0 @@
-"name" , "tab_script", "csv"
-"Permissions","scripts/python/perms.py","CSV/permissions.csv"
-"UFW Rules", "Text_Entry","CSV/UFW.csv"

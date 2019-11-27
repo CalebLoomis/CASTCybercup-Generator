@@ -41,9 +41,16 @@ class GuiHandler:
     #Tries to execute file. Failing that, will attempt to run a cmd ad-hoc
     def run_code(self, cmd):
         try:
-            execfile(cmd)
+            with open (cmd) as c:
+                code = compile(f.read(), cmd, 'exec')
+                #TODO: setup run_code to accept global and local vars
+                #exec(code, global_vars, local_vars)
+                exec(code)
         except:
-            exec(cmd)
+            try:
+                exec(cmd)
+            except:
+                print("Error. " + cmd + " not a file or python command.")
 
     def pack_Label(self, pack_text):
         label = Label(self.screen, text=pack_text)
