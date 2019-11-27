@@ -1,35 +1,35 @@
 from Tkinter import *
 import ttk, CSV_reader, tkFileDialog
 
-
+grid_array = list()
 
 class GuiHandler:
 
 
     def __init__ (self):
+        global grid_array
         row_counter = 0
         col_counter = 0
         self.root = Tk()
         self.screen = Frame(self.root)
         self.screen.pack()
-        self.grid_array=list()
 
     def fill_array(self, row, col, thing):
         new_array=list()
         for i in range (row + 1):
             try:
-                new_array.append(self.grid_array[i])
+                new_array.append(grid_array[i])
             except:
                 new_array.append(list())
 
             for j in range (col + 1):
                 try:
-                    new_array[i].append(self.grid_array[i][j])
+                    new_array[i].append(grid_array[i][j])
                 except:
                     new_array[i].append(None)
 
         new_array[row] [col] = thing
-        self.grid_array = new_array
+        grid_array = new_array
 
     #Sets the title of the
     def set_title(self, title_text):
@@ -42,10 +42,26 @@ class GuiHandler:
     def run_code(self, cmd):
         try:
             with open (cmd) as c:
-                code = compile(f.read(), cmd, 'exec')
+                code = compile(c.read(), cmd, 'exec')
                 #TODO: setup run_code to accept global and local vars
                 #exec(code, global_vars, local_vars)
-                exec(code)
+                exec(code, globals())
+        except:
+            try:
+                exec(cmd)
+            except:
+                print("Error. " + cmd + " not a file or python command.")
+
+    #Run_code with knowledge of its position.
+    def run_code(self, cmd, x, y):
+        globals()["x_pos"] = x
+        globals()["y_pos"] = y
+        try:
+            with open (cmd) as c:
+                code = compile(c.read(), cmd, 'exec')
+                #TODO: setup run_code to accept global and local vars
+                #exec(code, global_vars, local_vars)
+                exec(code, globals())
         except:
             try:
                 exec(cmd)
@@ -125,11 +141,12 @@ class GuiHandler:
 
     #Grid button with command, parent and padding
     def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col, pad_x, pad_y, parent):
-        button = Button(parent, text=pack_text, command=lambda: self.run_code(pack_command))
+        button = Button(parent, text=pack_text, command=lambda: self.run_code(pack_command, my_row, my_col))
         self.fill_array(my_row, my_col, button)
         button.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
-
+    #DEPRECIATED
     def newline_Button(self, pack_text):
+        print ("newline_Button DEPRECIATED")
         button = Button(self.screen, text=pack_text)
         button.pack()
 
@@ -218,7 +235,7 @@ class GuiHandler:
                     self.grid_Button(tab_text, tab_row, tab_col, tab_padx, tab_pady, new_tab)
 
                 elif (tab_type == "button" and can_create):
-                    print(tab_script)
+                    #print(tab_script)
                     self.grid_Button_With_Command(tab_text, tab_script, tab_row, tab_col, tab_padx, tab_pady, new_tab)
 
             #print(tab)
