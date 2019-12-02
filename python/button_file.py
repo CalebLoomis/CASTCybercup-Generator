@@ -1,4 +1,7 @@
 #This file takes global vars from GuiHandler
 
-tkinterobj.file_selection_box()
-print (GUI_grid[0])
+filename = tkinterobj.file_selection_box()
+
+active_key[row][col + 1]['text'] = filename
+print (filename)
+print (active_key[row][col + 1]['text'])
