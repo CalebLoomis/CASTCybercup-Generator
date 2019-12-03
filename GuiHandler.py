@@ -1,47 +1,17 @@
 from Tkinter import *
 from check_number import *
-import ttk, CSV_reader, tkFileDialog
+import ttk, CSV_reader, tkFileDialog, GridEditor
 
-GUI_grid = {}
 
 class GuiHandler:
-    active_grid = None
+    ge = GridEditor.GridEditor()
 
     def __init__ (self):
-        global GUI_grid
         row_counter = 0
         col_counter = 0
         self.root = Tk()
         self.screen = Frame(self.root)
         self.screen.pack()
-
-    #fill_array makes an array inside of the dictionary GUI_grid in which thing
-    #will be placed.
-    def fill_array(self, row, col, key, thing):
-        global GUI_grid
-        new_array=list()
-
-        try:
-            new_array=GUI_grid[key]
-        except KeyError:
-            GUI_grid[key] = list()
-            new_array=GUI_grid[key]
-
-        print (key, row, col)
-        for i in range (row + 1):
-            try:
-                new_array[i]
-            except:
-                new_array.append(list())
-
-            for j in range (col + 1):
-                try:
-                    new_array[i][j]
-                except:
-                    new_array[i].append(None)
-
-        new_array[row][col] = thing
-        GUI_grid[key] = new_array
 
     #Sets the title of the window
     def set_title(self, title_text):
@@ -66,17 +36,12 @@ class GuiHandler:
 
     #Run_code with knowledge of its position.
     def run_code(self, cmd, row, col):
-        globals()["row"] = row
-        globals()["col"] = col
-        globals()["active_key"] = self.active_grid
-        globals()["tkinterobj"] = self
-        print (self.active_grid)
         try:
             with open (cmd) as c:
                 code = compile(c.read(), cmd, 'exec')
                 #TODO: setup run_code to accept global and local vars
                 #exec(code, global_vars, local_vars)
-                exec(code, globals())
+                exec(code, locals())
         except IOError:
             try:
                 exec(cmd)
@@ -107,7 +72,7 @@ class GuiHandler:
     def grid_Label(self, pack_text, my_row, my_col, pad_x, pad_y, parent, tab_name):
         label = Label(parent, text=pack_text)
         label.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
-        self.fill_array(my_row, my_col, tab_name, label)
+        self.ge.fill_grid(my_row, my_col, tab_name, label)
 
     #Grid Entry Box without parent specified
     def grid_Entry(self, my_row, my_col):
@@ -128,7 +93,7 @@ class GuiHandler:
     def grid_Entry(self, my_row, my_col, pad_x, pad_y, parent, tab_name):
         entry = Entry(parent)
         entry.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
-        self.fill_array(my_row, my_col, tab_name, entry)
+        self.ge.fill_grid(my_row, my_col, tab_name, entry)
 
     #Grid Button without parent specified
     def grid_Button(self, pack_text, my_row, my_col):
@@ -164,7 +129,7 @@ class GuiHandler:
     def grid_Button_With_Command(self, pack_text, pack_command, my_row, my_col, pad_x, pad_y, parent, tab_name):
         button = Button(parent, text=pack_text, command=lambda: self.run_code(pack_command, my_row, my_col))
         button.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
-        self.fill_array(my_row, my_col, tab_name, button)
+        self.ge.fill_grid(my_row, my_col, tab_name, button)
 
     #DEPRECIATED
     def newline_Button(self, pack_text):
@@ -196,11 +161,7 @@ class GuiHandler:
     def on_tab_selected(self, event):
         selected_tab = event.widget.select()
         tab_text = event.widget.tab(selected_tab, "text")
-        try:
-            self.active_grid = GUI_grid[tab_text]
-        except KeyError:
-            print ("Key Error in Selected tab. I really hope this never happens.")
-            print (GUI_grid)
+        self.ge.set_active(tab_text)
 
 
     def file_selection_box(self):
