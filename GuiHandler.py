@@ -22,21 +22,21 @@ class GuiHandler:
         new_array=list()
 
         try:
-            old_grid=GUI_grid[key]
+            new_array=GUI_grid[key]
         except KeyError:
             GUI_grid[key] = list()
-            old_grid=GUI_grid[key]
+            new_array=GUI_grid[key]
 
-        print (row, col)
+        print (key, row, col)
         for i in range (row + 1):
             try:
-                new_array.append(old_grid[i])
+                new_array[i]
             except:
                 new_array.append(list())
 
             for j in range (col + 1):
                 try:
-                    new_array[i].append(old_grid[i][j])
+                    new_array[i][j]
                 except:
                     new_array[i].append(None)
 
@@ -70,6 +70,7 @@ class GuiHandler:
         globals()["col"] = col
         globals()["active_key"] = self.active_grid
         globals()["tkinterobj"] = self
+        print (self.active_grid)
         try:
             with open (cmd) as c:
                 code = compile(c.read(), cmd, 'exec')
