@@ -1,6 +1,6 @@
 "type","text","row","column","padx","pady","script","description"
 "label","File Location:",0,0,15,7,"","File Location Label"
-"button","Select File...",0,1,15,7,"self.ge.file_Button(row, col)","File Location Button"
+"button","Select File...",0,1,15,7,"self.file_Button(row, col)","File Location Button"
 "label","Read (0-7):",1,0,15,7,"","Read Label"
 "entry","",1,1,15,7,"","Read Entry"
 "label","Write (0-7):",2,0,15,7,"","Write Label"

@@ -238,3 +238,9 @@ class GuiHandler:
 
     def change_label(self, row, col, new_text):
         self.GUI_grid[row][col]['text'] = new_text
+
+    def file_Button(self, row, col):
+        filename = self.file_selection_box()
+        button = self.ge.get_element_at_location(row, col)
+        #print (self.active_key)
+        button['text'] = filename

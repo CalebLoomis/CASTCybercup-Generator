@@ -30,12 +30,9 @@ class GridEditor:
             self.grid_dict[key] = list()
             self.active_key = key
 
-    def file_Button(self, row, col):
-        filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("all files","*.*"), ("jpeg files", "*.jpeg")))
-        grid = self.grid_dict
-        key = self.active_key
-        #print (self.active_key)
-        grid[key][row][col]['text'] = filename
+    def get_element_at_location(self, row, col):
+        return self.grid_dict[self.active_key][row][col]
+
 
     #fill_array makes an array inside of the dictionary GUI_grid in which thing
     #will be placed.
