@@ -7,4 +7,4 @@
 "entry","",2,1,15,7,"","Write Entry"
 "label","Execute (0-7):",3,0,15,7,"","Execute Label"
 "entry","",3,1,15,7,"","Execute Entry"
-"button","Submit",4,0,15,7,"","Next Button"
+"button","Submit",4,0,15,7,"self.ge.label_button_dict()","Submit Button"

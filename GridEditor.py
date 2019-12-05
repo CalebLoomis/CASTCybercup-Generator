@@ -1,5 +1,4 @@
-from Tkinter import *
-import ttk, CSV_reader, tkFileDialog
+import ttk, CSV_reader, Tkinter
 
 class GridEditor:
     #grid_dict will be a dictionary of 2d arrays
@@ -24,7 +23,7 @@ class GridEditor:
         try:
             self.grid_dict[key]
             self.active_key = key
-            print ("Active tab: " + key)
+            #print ("Active tab: " + key)
         except KeyError:
             print ("Key {} not found. Creating an empty list for key.", key)
             self.grid_dict[key] = list()
@@ -49,14 +48,47 @@ class GridEditor:
         for i in range (row + 1):
             try:
                 new_array[i]
-            except:
+            except IndexError:
                 new_array.append(list())
 
             for j in range (col + 1):
                 try:
                     new_array[i][j]
-                except:
+                except IndexError:
                     new_array[i].append(None)
 
         new_array[row][col] = thing
         self.grid_dict[key] = new_array
+
+    #Returns entry boxes adjacent to labels in dict with format:
+    #label:entry
+    def label_entry_dict(self):
+        current_list = self.grid_dict[self.active_key]
+        output = {}
+
+        for i in current_list:
+            for j in range (len(i)):
+                if (isinstance(i[j], Tkinter.Label) and len(i) > j):
+                    if (isinstance(i[j + 1], Tkinter.Entry)):
+                        key = i[j]["text"]
+                        data = i[j+1].get()
+#                        output[i[j]]
+                        output[key] = data
+        return (output)
+
+    #Returns entry boxes adjacent to labels in dict with format:
+    #label:entry
+    def label_button_dict(self):
+        current_list = self.grid_dict[self.active_key]
+        output = {}
+
+        for i in current_list:
+            for j in range (len(i)):
+                if (isinstance(i[j], Tkinter.Label) and len(i) > j):
+                    if (isinstance(i[j + 1], Tkinter.Button)):
+                        key = i[j]["text"]
+                        data = i[j+1]['text']
+#                        output[i[j]]
+                        output[key] = data
+                        print (output)
+        return (output)
