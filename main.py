@@ -1,5 +1,5 @@
 import platform
-import sys, GuiHandler, CSV_reader
+import sys, GuiHandler, CSV_reader, metahandler
 
 def linux_distribution():
     output = False
