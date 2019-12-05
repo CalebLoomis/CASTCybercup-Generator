@@ -5,6 +5,7 @@ import ttk, CSV_reader, tkFileDialog, GridEditor
 
 class GuiHandler:
     ge = GridEditor.GridEditor()
+    output_list = list()
 
     def __init__ (self):
         row_counter = 0
@@ -244,3 +245,16 @@ class GuiHandler:
         button = self.ge.get_element_at_location(row, col)
         #print (self.active_key)
         button['text'] = filename
+
+    def add_to_output(self):
+        appendex = self.ge.add_to_output()
+        will_append = True
+        for i in self.output_list:
+            if (appendex == i):
+                print ("Duplicate entry found. Ignoring!")
+                will_append = False
+        if (will_append):
+            self.output_list.append(appendex)
+
+    def get_output(self):
+        return (self.output_list)

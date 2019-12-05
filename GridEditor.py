@@ -6,6 +6,7 @@ class GridEditor:
     #active_key is the key for the 2d array we care about.
     active_key = None
 
+
     def __init__ (self):
         empty_grid = {}
         self.set_Grid(empty_grid)
@@ -90,5 +91,19 @@ class GridEditor:
                         data = i[j+1]['text']
 #                        output[i[j]]
                         output[key] = data
-                        print (output)
+                        #print (output)
+        return (output)
+
+    def add_to_output(self):
+        key = self.active_key
+        buttons = self.label_button_dict()
+        entries = self.label_entry_dict()
+        output = {}
+        output["type"] = key
+        for entry in entries:
+            output[entry] = entries[entry]
+
+        for button in buttons:
+            output[button] = buttons[button]
+
         return (output)

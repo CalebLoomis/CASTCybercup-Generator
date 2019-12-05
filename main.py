@@ -28,5 +28,7 @@ if (__name__ == "__main__"):
         gui.add_tabs(TABS_LIST)
         gui.run()
 
+        print (gui.get_output())
+
     else:
         print ("Exiting!")
