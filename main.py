@@ -1,5 +1,5 @@
 import platform
-import sys, GuiHandler, CSV_reader, metahandler
+import sys, GuiHandler, CSV_handler, metahandler
 
 def linux_distribution():
     output = False
@@ -14,9 +14,10 @@ def linux_distribution():
 
 if (__name__ == "__main__"):
     TABS_FILE = 'CSV/tabs.csv'
+    META_FILE = 'Engine/meta.csv'
     WIDTH = 600
     HEIGHT = 300
-    TABS_LIST = CSV_reader.loadCSV(TABS_FILE)
+    TABS_LIST = CSV_handler.loadCSV(TABS_FILE)
 
     if linux_distribution():
         print (platform.linux_distribution())

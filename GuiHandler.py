@@ -1,6 +1,6 @@
 from Tkinter import *
 from check_number import *
-import ttk, CSV_reader, tkFileDialog, GridEditor
+import ttk, tkFileDialog, GridEditor, CSV_handler
 
 
 class GuiHandler:
@@ -44,10 +44,10 @@ class GuiHandler:
                 #exec(code, global_vars, local_vars)
                 exec(code, locals())
         except IOError:
-            try:
+        #    try:
                 exec(cmd)
-            except NameError:
-                print("Error. " + cmd + " not a file or python command.")
+        #    except NameError:
+        #        print("Error. " + cmd + " not a file or python command.")
 
     def pack_Label(self, pack_text):
         label = Label(self.screen, text=pack_text)
@@ -178,7 +178,7 @@ class GuiHandler:
             new_tab = ttk.Frame(tab_parent)
             #print (tab)
             tab_file = tab['csv']
-            tab_infos = CSV_reader.loadCSV(tab_file)
+            tab_infos = CSV_handler.loadCSV(tab_file)
 
 
             for tab_info in tab_infos:

@@ -1,4 +1,4 @@
-import ttk, CSV_reader, Tkinter
+import Tkinter
 
 class GridEditor:
     #grid_dict will be a dictionary of 2d arrays
