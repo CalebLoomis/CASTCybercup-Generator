@@ -29,7 +29,10 @@ if (__name__ == "__main__"):
         gui.add_tabs(TABS_LIST)
         gui.run()
 
-        print (gui.get_output())
+        gui_output = (gui.get_output())
+
+        mh = metahandler.metahandler(dict_list = gui_output, meta = META_FILE)
+        print (mh.read_meta())
 
     else:
         print ("Exiting!")

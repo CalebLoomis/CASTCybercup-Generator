@@ -1,2 +1,2 @@
-"filename","script","description"
-"permissions.csv","genscripts/perms.py","File Permissions"
+"description","filename","script"
+"Permissions","permissions.csv","genscripts/perms.py"

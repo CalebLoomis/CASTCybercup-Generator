@@ -1,4 +1,4 @@
-import csv
+import csv, string
 
 
 def loadCSV(file_name):
@@ -24,14 +24,14 @@ def loadCSV(file_name):
 
 def verify_csv(infile):
     try:
-        with open(infile, newline='') as csvfile:
+        with open(infile) as csvfile:
             start = csvfile.read(4096)
 
             # isprintable does not allow newlines, printable does not allow umlauts...
             if not all([c in string.printable or c.isprintable() for c in start]):
                 return False
             has_header = csv.Sniffer().has_header(start)
-            csv.Sniffer.sniff(start)
+            #csv.Sniffer.sniff(start)
             return has_header
     except csv.Error:
         # Could not get a csv dialect -> probably not a csv.
