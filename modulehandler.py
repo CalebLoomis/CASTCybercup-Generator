@@ -15,7 +15,11 @@ class modulehandler:
             mod_dir = self.module_directory
 
         if mod_dir is not None:
-            listed_items = self.list_python_files_in_dir(mod_dir = mod_dir)
+            listed_modules = self.list_python_files_in_dir(mod_dir = mod_dir)
+            for module in listed_modules:
+                import_string = mod_dir + "." + module
+                current = __import__(import_string)
+                current.load()
 
     def list_python_files_in_dir(self, mod_dir = None):
 
@@ -26,7 +30,7 @@ class modulehandler:
         try:
             for i in os.listdir(mod_dir):
                 if (i[-3::] == ".py"):
-                    output_list.append(i)
+                    output_list.append(i[:-3])
         except TypeError:
             print ("Cannot access " + mod_dir + ". Are you sure that one is set?")
 
