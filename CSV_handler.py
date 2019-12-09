@@ -1,4 +1,4 @@
-import csv, string
+import csv, string, os
 
 
 def loadCSV(file_name):
@@ -36,3 +36,18 @@ def verify_csv(infile):
     except csv.Error:
         # Could not get a csv dialect -> probably not a csv.
         return False
+
+def append_to_csv(outfile, in_dict):
+    header = list()
+    for i in in_dict:
+        header.append(i)
+    if (os.path.isfile(outfile)):
+        with open (outfile, 'a') as my_file:
+            writer = csv.DictWriter(my_file, delimiter=',', fieldnames=header)
+            writer.writerow(in_dict)
+
+    else:
+        with open (outfile, 'a') as my_file:
+            writer = csv.DictWriter(my_file, delimiter=',', fieldnames=header)
+            writer.writeheader()
+            writer.writerow(in_dict)

@@ -32,7 +32,7 @@ if (__name__ == "__main__"):
         gui_output = (gui.get_output())
 
         mh = metahandler.metahandler(dict_list = gui_output, meta = META_FILE)
-        print (mh.read_meta())
+        mh.write_output_using_meta()
 
     else:
         print ("Exiting!")

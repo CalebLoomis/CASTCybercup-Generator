@@ -20,28 +20,57 @@ class metahandler:
             self.meta_file = meta
 
     def set_dictlist(self, dict_list):
-        self.main_list = main_list
+        self.main_list = dict_list
+
 
     def read_meta(self, meta = None):
         file_dict = None
 
         if (meta is None):
-            meta = self.meta_file
+            file_dict = CSV_handler.loadCSV(self.meta_file)
 
-        if (self.validate_meta(meta)):
+        elif (self.validate_meta(meta)):
             file_dict = CSV_handler.loadCSV(meta)
-            for line in file_dict:
-                self.line_to_file(line)
-
 
         else:
             print ("Bad meta file.")
+            file_dict = self.file_dict
 
         self.file_dict = file_dict
-        return (self.file_dict)
+
+    def write_output_using_meta(self, meta = None):
+        meta_dict = None
+
+        if (meta is None and self.file_dict is None):
+            self.read_meta(meta = self.meta_file)
+            meta_dict = self.file_dict
+        elif (meta is None):
+            meta_dict = self.file_dict
+
+        else:
+            self.read_meta(meta=meta)
+            meta_dict = self.file_dict
+        try:
+            for item in meta_dict:
+                ref_file = item['filename']
+                ref_desc = item['description']
+                self.lines_to_file(ref_file, item, ref_desc)
+        except TypeError:
+            print ("Error. Empty Meta File.")
 
     #Takes Line as a dict and writes itself to the CSV in the
-    def line_to_file(self, line):
+    def lines_to_file(self, file, line, desc):
+        if self.check_dict():
+            my_dict_list = self.main_list
+            for current_dict in my_dict_list:
+                #print (current_dict['type'].lower(), desc.lower())
+                if (current_dict['type'].lower() == desc.lower()):
+                    #print ("appending")
+                    CSV_handler.append_to_csv("Engine/" + file, current_dict)
+
+
+
+    def check_dict (self):
         completed = True
         issue_items = list()
         my_dict_list = self.main_list
@@ -52,9 +81,8 @@ class metahandler:
                     completed = False
                     issue_items.append(current_key)
 
-        if completed:
-            outfile = line['filename']
-
-        else:
+        if not completed:
             for item in issue_items:
                 print ("Empty item in dict. check " + item)
+
+        return completed
