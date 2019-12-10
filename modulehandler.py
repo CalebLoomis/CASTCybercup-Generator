@@ -2,6 +2,7 @@ import os, importlib
 class modulehandler:
 
     module_directory = None
+    module_list = list()
 
     def __init__(self, mod_dir = None):
         if mod_dir is not None:
@@ -25,15 +26,21 @@ class modulehandler:
                     print ("cannot import " + current)
 
                 try:
-                    loader = getattr(current_module, "load")
-                    loader()
+                    loader = getattr(current_module, current)
+                    current_obj = loader()
+                    self.module_list.append(current_obj)
+
+                    current_obj.load()
+
                 except Exception as e:
-                    print ("I can import " + current + ", but I cannot load.")
-                    print ("Because " + e.args[0] + "\n")
+                    print ("I can import " + current + ", but I cannot load because:")
+                    print (e.args[0] + "\n")
 
                 #print (current)
 
     def list_python_files_in_dir(self, mod_dir = None):
+
+        ignore_words= "__init__.py Module_Behavior.py"
 
         output_list = list()
         if mod_dir is None:
@@ -41,7 +48,7 @@ class modulehandler:
 
         try:
             for i in os.listdir(mod_dir):
-                if (i[-3::] == ".py" and not i == "__init__.py"):
+                if (i[-3::] == ".py" and not i in ignore_words):
                     output_list.append(i[:-3])
         except TypeError:
             print ("Cannot access " + mod_dir + ". Are you sure that one is set?")

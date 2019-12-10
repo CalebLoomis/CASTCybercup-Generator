@@ -1,3 +1,4 @@
+import Module_Behavior
 
-def load():
-    print ("Made it to loader!")
+class perms (Module_Behavior.Module_Behavior):
+    pass

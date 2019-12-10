@@ -22,7 +22,7 @@ if (__name__ == "__main__"):
 
     if linux_distribution():
         mod_handle = modulehandler.modulehandler(mod_dir = MODULE_DIR)
-        print (platform.linux_distribution())
+        #print (platform.linux_distribution())
         gui = GuiHandler.GuiHandler();
         #gui.left_Button_With_Command("Quit", "root.destroy()")
         #gui.left_Button_With_Command("Hello", "print ('test')")
