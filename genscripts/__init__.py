@@ -1,11 +1,22 @@
-"""import os
+"""import os, importlib
 
 
-mod_dir = os.path.dirname(__file__)
+dir_path = os.path.dirname(os.path.realpath(__file__))
+__all__ = list()
+dir = os.listdir(dir_path)
+output_list = list()
+
 try:
-    for my_file in os.listdir(mod_dir):
-        if (my_file[-3::] == ".py" and not(my_file == '__init__.py')):
-            __import__(my_file[:-3])
+    for current in dir:
+        if (current[-3::] == ".py" and not current == "__init__.py"):
+            __all__.append(current[:-3])
 except TypeError:
-    print ("Cannot access folder. Are you sure that one is set?")
+    print ("Cannot access directory")
+
+print (__all__)
+
+__all__.append("load_all")
+
+def load_all(all_modules):
+    print ("cool")
 """

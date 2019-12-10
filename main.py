@@ -21,8 +21,8 @@ if (__name__ == "__main__"):
     TABS_LIST = CSV_handler.loadCSV(TABS_FILE)
 
     if linux_distribution():
-        print (platform.linux_distribution())
         mod_handle = modulehandler.modulehandler(mod_dir = MODULE_DIR)
+        print (platform.linux_distribution())
         gui = GuiHandler.GuiHandler();
         #gui.left_Button_With_Command("Quit", "root.destroy()")
         #gui.left_Button_With_Command("Hello", "print ('test')")
@@ -35,6 +35,8 @@ if (__name__ == "__main__"):
 
         mh = metahandler.metahandler(dict_list = gui_output, meta = META_FILE)
         mh.write_output_using_meta()
+
+
 
     else:
         print ("Exiting!")
