@@ -1,2 +1,3 @@
 Execute (0-7):,Write (0-7):,type,File Location:,Read (0-7):
 1,12,Permissions,/initrd.img.old,1
+5,2,Permissions,/initrd.img,4

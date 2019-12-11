@@ -6,7 +6,9 @@ if (sys.version_info <= (3, 0)):
   import ttk, tkFileDialog, GridEditor, CSV_handler
 else:
   from tkinter import *
+  from tkinter import ttk as ttk
   from tkinter import filedialog as tkFileDialog
+  from check_number import *
   import GridEditor, CSV_handler
 
 class GuiHandler:

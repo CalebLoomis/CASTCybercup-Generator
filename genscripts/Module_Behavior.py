@@ -18,4 +18,13 @@ class Module_Behavior:
 
 
     def load(self):
-      print ("Loaded Module")
+        print ("Loaded Module")
+
+    def set_desc(self, desc):
+        self.mod_desc = desc
+
+    def set_csv_list(self,csv_list):
+        self.csv_dict_list = csv_list
+
+    def set_passed_list(self, passed_list):
+        self.passed_dict_list = passed_list

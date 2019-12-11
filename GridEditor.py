@@ -2,7 +2,7 @@ import sys
 
 if (sys.version_info <= (3, 0)):
   import Tkinter
-else
+else:
   import tkinter as Tkinter
 
 
