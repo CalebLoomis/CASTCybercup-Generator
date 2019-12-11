@@ -1,4 +1,10 @@
-import Tkinter
+import sys
+
+if (sys.version_info <= (3, 0)):
+  import Tkinter
+else
+  import tkinter as Tkinter
+
 
 class GridEditor:
     #grid_dict will be a dictionary of 2d arrays

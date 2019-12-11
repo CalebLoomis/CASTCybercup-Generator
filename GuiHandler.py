@@ -1,7 +1,13 @@
-from Tkinter import *
-from check_number import *
-import ttk, tkFileDialog, GridEditor, CSV_handler
+import sys
 
+if (sys.version_info <= (3, 0)):
+  from Tkinter import *
+  from check_number import *
+  import ttk, tkFileDialog, GridEditor, CSV_handler
+else:
+  from tkinter import *
+  from tkinter import filedialog as tkFileDialog
+  import GridEditor, CSV_handler
 
 class GuiHandler:
     ge = GridEditor.GridEditor()
