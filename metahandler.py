@@ -4,6 +4,7 @@ class metahandler:
     main_list = None
     meta_file = None
     file_dict = None
+    ref_file = None
 
     def __init__ (self, dict_list = None, meta = None):
         if meta is not None:
@@ -69,6 +70,8 @@ class metahandler:
                     CSV_handler.append_to_csv("Engine/" + file, current_dict)
 
 
+    def return_csv_dirs(self, meta=None):
+        output_list = list()
 
     def check_dict (self):
         completed = True
