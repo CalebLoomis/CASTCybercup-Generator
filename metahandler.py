@@ -70,8 +70,52 @@ class metahandler:
                     CSV_handler.append_to_csv("Engine/" + file, current_dict)
 
 
-    def return_csv_dirs(self, meta=None):
+    def get_csv_dirs(self, meta=None):
         output_list = list()
+        meta_dict = None
+
+        if (meta is None and self.file_dict is None):
+            self.read_meta(meta = self.meta_file)
+            meta_dict = self.file_dict
+        elif (meta is None):
+            meta_dict = self.file_dict
+
+        else:
+            self.read_meta(meta=meta)
+            meta_dict = self.file_dict
+
+        try:
+            for item in meta_dict:
+                ref_file = "Engine/" + item['filename']
+                output_list.append(ref_file)
+        except TypeError:
+            print ("Error. Empty Meta File.")
+
+        return (output_list)
+
+    def get_meta_modules(self, meta=None):
+        output_list = list()
+        meta_dict = None
+
+        if (meta is None and self.file_dict is None):
+            self.read_meta(meta = self.meta_file)
+            meta_dict = self.file_dict
+        elif (meta is None):
+            meta_dict = self.file_dict
+
+        else:
+            self.read_meta(meta=meta)
+            meta_dict = self.file_dict
+
+        try:
+            for item in meta_dict:
+                ref_script = item['script']
+                output_list.append(ref_script)
+        except TypeError:
+            print ("Error. Empty Meta File.")
+
+        return (output_list)
+
 
     def check_dict (self):
         completed = True
