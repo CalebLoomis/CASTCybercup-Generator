@@ -1,4 +1,4 @@
-from ModuleBehavior import *
+from Module_Behavior import *
 
 class perms (Module_Behavior):
     mod_name = None

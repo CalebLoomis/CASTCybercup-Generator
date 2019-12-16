@@ -38,7 +38,7 @@ class modulehandler:
             #try:
             current_module = importlib.import_module(import_string)
 
-            '''    try:
+                try:
                     loader = getattr(current_module, module_name)
                     current_obj = loader()
                     #self.module_list.append(current_obj)
@@ -49,7 +49,7 @@ class modulehandler:
                 except Exception as e:
                     print ("I can import " + module_name + ", but I cannot load because:")
                     print (e.args[0] + "\n")
-'''
+
             #except ImportError:
             #    print ("cannot import " + import_string)
 
