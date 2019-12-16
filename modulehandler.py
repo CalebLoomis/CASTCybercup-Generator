@@ -2,39 +2,58 @@ import os, importlib
 class modulehandler:
 
     module_directory = None
+    csv_dir = None
     module_list = list()
 
-    def __init__(self, mod_dir = None):
-        if mod_dir is not None:
-            self.module_directory = mod_dir
-            self.load_modules (mod_dir=mod_dir)
+    def __init__(self, input_items = None):
+        if input_items is not None:
 
-    def load_modules(self, mod_dir = None):
+            if "\a" in input_items:
+                input_items = input_items.split("\a")
+                #print (input_items)
+                self.module_directory = input_items[1]
+                self.csv_dir = input_items[0]
 
-        if mod_dir is None and self.module_directory is None:
+    def load_module(self):
+
+        mod_dir = None
+        mod_csv = None
+        if self.csv_dir is None or self.module_directory is None:
             print ("Missing mod_dir. Unable to continue.")
-        elif mod_dir is None:
+        else:
             mod_dir = self.module_directory
+            mod_csv = self.csv_dir
 
         if mod_dir is not None:
-            dir_list = self.list_python_files_in_dir(mod_dir = mod_dir)
-            for current in dir_list:
+            mod_dir = mod_dir[:-3] # Strip out .py
+            mod_dir_in_list = mod_dir.split("/")
+            import_string = ""
+            module_name = mod_dir_in_list[len(mod_dir_in_list) - 1]
 
-                try:
-                    current_module = importlib.import_module(mod_dir + '.' + current)
-                except ImportError:
-                    print ("cannot import " + current)
+            for i in mod_dir_in_list:
+                import_string += i + "."
 
-                try:
-                    loader = getattr(current_module, current)
+            import_string = import_string [:-1]
+
+            #try:
+            current_module = importlib.import_module(import_string)
+
+            '''    try:
+                    loader = getattr(current_module, module_name)
                     current_obj = loader()
-                    self.module_list.append(current_obj)
+                    #self.module_list.append(current_obj)
 
+                    current_obj.start()
                     current_obj.load()
 
                 except Exception as e:
-                    print ("I can import " + current + ", but I cannot load because:")
+                    print ("I can import " + module_name + ", but I cannot load because:")
                     print (e.args[0] + "\n")
+'''
+            #except ImportError:
+            #    print ("cannot import " + import_string)
+
+
 
                 #print (current)
 

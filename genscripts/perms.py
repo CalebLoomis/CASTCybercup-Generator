@@ -1,4 +1,6 @@
-import Module_Behavior
+from Module_Behavior import *
 
-class perms (Module_Behavior.Module_Behavior):
-    pass
+class perms (Module_Behavior):
+    mod_name = "perms"
+    def load(self):
+        print (self.mod_name)
