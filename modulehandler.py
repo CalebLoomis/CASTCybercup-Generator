@@ -4,8 +4,18 @@ class modulehandler:
     module_directory = None
     csv_dir = None
     module_list = list()
+    imports_list = list()
 
     def __init__(self, input_items = None):
+        if input_items is not None:
+
+            if "\a" in input_items:
+                input_items = input_items.split("\a")
+                #print (input_items)
+                self.module_directory = input_items[1]
+                self.csv_dir = input_items[0]
+
+    def set_new_items(self, input_items):
         if input_items is not None:
 
             if "\a" in input_items:
@@ -44,7 +54,13 @@ class modulehandler:
                     #self.module_list.append(current_obj)
 
                     current_obj.start()
-                    current_obj.get_imports()
+                    current_imports = current_obj.get_imports()
+
+                    #print (current_imports)
+
+                    for i in current_imports:
+                        self.imports_list.append(i)
+
                     current_obj.load()
 
                 except Exception as e:
@@ -52,8 +68,8 @@ class modulehandler:
                     print (e.args[0] + "\n")
 
             except ImportError:
-                try:
-                    current_module = importlib.import_module("." + import_string)
+                #try:
+                    current_module = importlib.import_module(import_string, package=module_name)
 
                     try:
                         loader = getattr(current_module, module_name)
@@ -66,8 +82,8 @@ class modulehandler:
                     except Exception as e:
                         print ("I can import " + module_name + ", but I cannot load because:")
                         print (e.args[0] + "\n")
-                except ImportError:
-                    print ("cannot import " + import_string)
+                #except ImportError:
+                #    print ("cannot import " + import_string)
 
 
 
@@ -89,3 +105,15 @@ class modulehandler:
             print ("Cannot access " + mod_dir + ". Are you sure that one is set?")
 
         return output_list
+
+    def write_modules_output(self, filename="redhatscoring.py"):
+        imports = self.imports_list
+        import_line = "import "
+
+        for item in imports:
+            import_line += item + ", "
+
+        import_line = import_line[:-2]
+
+        with open (filename, 'w+') as engine_file:
+            engine_file.write(import_line)

@@ -4,12 +4,9 @@ class perms (Module_Behavior):
 
     def start(self):
         print ("Setting up Perms Module...")
-        
+
         self.mod_name = "perms"
         self.imports = ["os"]
-
-
-
 
 
 

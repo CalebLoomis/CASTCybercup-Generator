@@ -1,3 +1,5 @@
+import CSV_handler
+
 class Module_Behavior(object):
 
     mod_name = None
@@ -39,7 +41,7 @@ class Module_Behavior(object):
 
     def get_imports(self):
         for i in self.imports:
-            print (i)
+            #print (i)
             if (self.check_import_dupe(i)):
                 self.to_import.append(i)
 
@@ -52,3 +54,6 @@ class Module_Behavior(object):
                 can_add = False
 
         return can_add
+
+    def run_each_line(self):
+        pass

@@ -37,10 +37,15 @@ if (__name__ == "__main__"):
         mh.write_output_using_meta()
         dirs = mh.get_csv_dirs()
         #print (dirs)
+        modules = modulehandler.modulehandler()
+
         for dir in dirs:
-            modules = modulehandler.modulehandler(input_items = dirs[0])
+            modules.set_new_items(dir)
 
             modules.load_module()
+
+        modules.write_modules_output()
+
 
     else:
         print ("Exiting!")
