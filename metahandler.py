@@ -6,6 +6,7 @@ class metahandler:
     file_dict = None
     ref_file = None
 
+
     def __init__ (self, dict_list = None, meta = None):
         if meta is not None:
             if (self.validate_meta(meta)):
@@ -22,6 +23,8 @@ class metahandler:
 
     def set_dictlist(self, dict_list):
         self.main_list = dict_list
+
+
 
 
     def read_meta(self, meta = None):

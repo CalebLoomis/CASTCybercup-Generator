@@ -1,9 +1,11 @@
-class Module_Behavior:
+class Module_Behavior(object):
 
     mod_name = None
     mod_desc = None
     csv_dict_list = None
     passed_dict_list = None
+    to_import = list()
+    imports = None
 
     def __init__(self, module_desc = None, dict_list = None, config_csv = None):
         if module_desc is not None:
@@ -34,3 +36,19 @@ class Module_Behavior:
 
     def set_passed_list(self, passed_list):
         self.passed_dict_list = passed_list
+
+    def get_imports(self):
+        for i in self.imports:
+            print (i)
+            if (self.check_import_dupe(i)):
+                self.to_import.append(i)
+
+        return self.to_import
+
+    def check_import_dupe(self, module):
+        can_add = True
+        for i in self.to_import:
+            if (i == module):
+                can_add = False
+
+        return can_add

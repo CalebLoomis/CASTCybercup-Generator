@@ -44,6 +44,7 @@ class modulehandler:
                     #self.module_list.append(current_obj)
 
                     current_obj.start()
+                    current_obj.get_imports()
                     current_obj.load()
 
                 except Exception as e:
