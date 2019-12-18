@@ -56,12 +56,13 @@ class modulehandler:
                     current_obj.start()
                     current_imports = current_obj.get_imports()
 
+                    current_obj.set_csv_file(mod_csv)
                     #print (current_imports)
 
                     for i in current_imports:
                         self.imports_list.append(i)
 
-                    current_obj.load()
+                    current_obj.run_each_line()
 
                 except Exception as e:
                     print ("I can import " + module_name + ", but I cannot load because:")

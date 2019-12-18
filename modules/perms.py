@@ -9,7 +9,5 @@ class perms (Module_Behavior):
         self.imports = ["os"]
 
 
-
-
-    def load(self):
+    def load(self, csv_row):
         print ("Loaded perms")

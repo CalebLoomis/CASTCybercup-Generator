@@ -4,7 +4,7 @@ class Module_Behavior(object):
 
     mod_name = None
     mod_desc = None
-    csv_dict_list = None
+    csv_file = None
     passed_dict_list = None
     to_import = list()
     imports = None
@@ -14,7 +14,7 @@ class Module_Behavior(object):
             self.mod_desc = module_desc
 
         if dict_list is not None:
-            self.csv_dict_list = csv_list
+            self.csv_file = csv_list
 
         if config_csv is not None:
             self.passed_dict_list = dict_list
@@ -24,7 +24,7 @@ class Module_Behavior(object):
     def start(self):
         pass
 
-    def load(self):
+    def load(self, csv_row):
         print ("Loaded Module " + self.mod_name)
 
     def set_desc(self, desc):
@@ -33,8 +33,8 @@ class Module_Behavior(object):
     def set_name(self, name):
         self.mod_name = name
 
-    def set_csv_list(self,csv_list):
-        self.csv_dict_list = csv_list
+    def set_csv_file(self,csv_list):
+        self.csv_file = csv_list
 
     def set_passed_list(self, passed_list):
         self.passed_dict_list = passed_list
@@ -56,4 +56,6 @@ class Module_Behavior(object):
         return can_add
 
     def run_each_line(self):
-        pass
+        lines = CSV_handler.loadCSV(self.csv_file)
+        for line in lines:
+            self.load(line)
