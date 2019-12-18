@@ -8,6 +8,8 @@ class Module_Behavior(object):
     passed_dict_list = None
     to_import = list()
     imports = None
+    conditions = list()
+    vars = {}
 
     def __init__(self, module_desc = None, dict_list = None, config_csv = None):
         if module_desc is not None:

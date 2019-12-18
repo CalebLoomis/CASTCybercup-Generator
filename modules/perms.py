@@ -10,4 +10,5 @@ class perms (Module_Behavior):
 
 
     def load(self, csv_row):
-        print ("Loaded perms")
+        current_vars = self.vars
+        print (csv_row["FileLocation:"])

@@ -1,4 +1,5 @@
 import sys
+from datetime import datetime
 
 if (sys.version_info <= (3, 0)):
   import Tkinter
@@ -106,6 +107,7 @@ class GridEditor:
         entries = self.label_entry_dict()
         output = {}
         output["type"] = key
+        output["timestamp"] = datetime.now().strftime('%m%d_%H%M%S')
         for entry in entries:
             output[entry] = entries[entry]
 
