@@ -1,4 +1,5 @@
 from Module_Behavior import *
+import os
 
 class perms (Module_Behavior):
 
@@ -13,6 +14,10 @@ class perms (Module_Behavior):
         current_vars = self.vars
         try:
             file_location = csv_row ["FileLocation"]
-            print (file_location)
-        except:
-            pass
+            read_perms = csv_row["Read"]
+            write_perms = csv_row["Write"]
+            execute_perms = csv_row["Execute"]
+            print (read_perms+write_perms+execute_perms)
+            print(oct(os.stat(file_location).st_mode)[-3::])
+        except KeyError:
+            print ("Bad Key. Did you change the CSVs/permissions.csv file?")
