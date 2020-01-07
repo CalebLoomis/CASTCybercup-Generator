@@ -1,2 +1,2 @@
-Execute (0-7):,File Location:,Read (0-7):,timestamp,Write (0-7):,type
-1,Select File...,1,1218_170109,1,Permissions
+Execute,Read,timestamp,Write,File Location,type
+7,7,0107_161201,7,/initrd.img.old,Permissions

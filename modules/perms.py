@@ -11,4 +11,8 @@ class perms (Module_Behavior):
 
     def load(self, csv_row):
         current_vars = self.vars
-        print (csv_row["FileLocation:"])
+        try:
+            file_location = csv_row ["FileLocation"]
+            print (file_location)
+        except:
+            pass
