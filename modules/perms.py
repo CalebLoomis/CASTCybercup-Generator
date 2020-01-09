@@ -7,7 +7,7 @@ class perms (Module_Behavior):
         print ("Setting up Perms Module...")
 
         self.mod_name = "perms"
-        self.imports = ["os"]
+        self.imports = ["os", "re", "csv"]
 
 
     def load(self, csv_row):

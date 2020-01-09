@@ -7,7 +7,7 @@ class Module_Behavior(object):
     csv_file = None
     passed_dict_list = None
     to_import = list()
-    imports = None
+    imports = list()
     conditions = list()
     vars = {}
 
@@ -42,23 +42,25 @@ class Module_Behavior(object):
         self.passed_dict_list = passed_list
 
     def get_imports(self):
+        #can_add = True
         for i in self.imports:
             #print (i)
             if (self.check_import_dupe(i)):
                 self.to_import.append(i)
 
-        return self.to_import
+        return (self.to_import)
 
     def check_import_dupe(self, module):
         can_add = True
         for i in self.to_import:
             if (i == module):
+                print (i, module)
                 can_add = False
 
         return can_add
 
     def add_point(self, conditional, point_text):
-        
+        self.conditions.append ({})
         print (point_text)
 
     def run_each_line(self):
