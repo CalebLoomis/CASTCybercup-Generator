@@ -58,6 +58,7 @@ class Module_Behavior(object):
         return can_add
 
     def add_point(self, conditional, point_text):
+        
         print (point_text)
 
     def run_each_line(self):

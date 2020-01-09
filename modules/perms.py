@@ -22,8 +22,8 @@ class perms (Module_Behavior):
         proper_perms = read_perms + write_perms + execute_perms
 
         #Some solutions require googling, and that's OK.
-        current_perms = oct(os.stat(file_location).st_mode)[-3::]
+        #current_perms = oct(os.stat(file_location).st_mode)[-3::]
 
-        output_string = "(" + proper_perms + " == " + current_perms + ")"
+        output_string = "(" + proper_perms + " == oct(os.stat(" + file_location + ").st_mode)[-3::] )"
         point_text = "Permissions of " + file_location
         self.add_point(output_string, point_text)
