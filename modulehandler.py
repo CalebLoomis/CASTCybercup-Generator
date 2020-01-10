@@ -56,6 +56,7 @@ class modulehandler:
                     current_obj.start()
                     #current_obj.load()
                     current_imports = current_obj.get_imports()
+                    current_conditionals = current_obj.get_conditions()
 
                     current_obj.set_csv_file(mod_csv)
                     #print (current_imports)
@@ -110,7 +111,6 @@ class modulehandler:
 
     def write_modules_output(self, filename="redhatscoring.py"):
         imports = self.imports_list
-        print (imports)
         import_line = "import "
 
         for item in imports:

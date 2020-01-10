@@ -35,6 +35,9 @@ class Module_Behavior(object):
     def set_name(self, name):
         self.mod_name = name
 
+    def get_conditions(self):
+        return self.conditions
+
     def set_csv_file(self,csv_list):
         self.csv_file = csv_list
 
@@ -60,8 +63,7 @@ class Module_Behavior(object):
         return can_add
 
     def add_point(self, conditional, point_text):
-        self.conditions.append ({})
-        print (point_text)
+        self.conditions.append ({"conditional" : conditional, "point_text" : point_text})
 
     def run_each_line(self):
         lines = CSV_handler.loadCSV(self.csv_file)
