@@ -3,13 +3,15 @@ import os
 
 class perms (Module_Behavior):
 
+    #Start runs once for the entire CSV File
     def start(self):
         print ("Setting up Perms Module...")
 
         self.mod_name = "perms"
-        self.imports = ["os", "re", "csv"]
+        self.imports = ["os"]
 
 
+    #Load runs once for every row in the CSV File
     def load(self, csv_row):
         current_vars = self.vars
 

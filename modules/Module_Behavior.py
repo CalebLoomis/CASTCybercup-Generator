@@ -65,7 +65,7 @@ class Module_Behavior(object):
     def add_point(self, conditional, point_text):
         self.conditions.append ({"conditional" : conditional, "point_text" : point_text})
 
-    def run_each_line(self):
+    def load_each_line(self):
         lines = CSV_handler.loadCSV(self.csv_file)
         for line in lines:
             self.load(line)
