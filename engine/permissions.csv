@@ -1,2 +1,4 @@
 Read,Write,Execute,type,File Location
 1,1,1,Permissions,/initrd.img.old
+3,4,4,Permissions,/webmin-setup.out
+7,7,7,Permissions,/initrd.img
