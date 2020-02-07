@@ -1,2 +1,3 @@
-"name" , "tab_script", "csv"
-"Permissions","scripts/python/perms.py","CSV/permissions.csv"
+"name" , "csv"
+"Permissions","CSV/permissions.csv"
+"Ports","CSV/ports.csv"

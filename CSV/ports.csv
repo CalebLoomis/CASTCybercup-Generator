@@ -1,0 +1,4 @@
+type,text,row,column,padx,pady,script,description
+label,Port Number,0,0,15,7,,File Location Label
+entry,,0,1,15,7,,Read Entry
+button,Submit,4,0,15,7,self.add_to_output(),Submit Button
