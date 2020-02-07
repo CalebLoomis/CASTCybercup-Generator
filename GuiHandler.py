@@ -106,7 +106,8 @@ class GuiHandler:
 
     #Grid Check Box
     def grid_Checkbox(self, my_row, my_col, pad_x, pad_y, parent, tab_name):
-        checkbox = Checkbutton(parent)
+        var = IntVar()
+        checkbox = Checkbutton(parent, variable=var)
         checkbox.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
         self.ge.fill_grid(my_row, my_col, tab_name, checkbox)
 

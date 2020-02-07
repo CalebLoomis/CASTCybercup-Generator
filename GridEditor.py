@@ -101,10 +101,30 @@ class GridEditor:
                         #print (output)
         return (output)
 
+
+    def label_checkbox_dict(self):
+        current_list = self.grid_dict[self.active_key]
+        output = {}
+
+        for i in current_list:
+            for j in range (len(i)):
+                if (isinstance(i[j], Tkinter.Label) and len(i) > j):
+                    if (isinstance(i[j + 1], Tkinter.Checkbutton)):
+                        key = i[j]["text"]
+                        data = i[j+1]
+
+                        print (data['variable'].get())
+#                        output[i[j]]
+                        output[key] = data
+                        #print (output)
+        return (output)
+
     def add_to_output(self):
         key = self.active_key
         buttons = self.label_button_dict()
         entries = self.label_entry_dict()
+        checkboxes = self.label_checkbox_dict()
+
         output = {}
         output["type"] = key
         #output["timestamp"] = datetime.now().strftime('%m%d_%H%M%S')
@@ -113,5 +133,8 @@ class GridEditor:
 
         for button in buttons:
             output[button] = buttons[button]
+
+        for checkbox in checkboxes:
+            output[checkbox] = checkboxes[checkbox]
 
         return (output)
