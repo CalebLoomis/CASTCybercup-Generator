@@ -104,6 +104,12 @@ class GuiHandler:
         entry.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
         self.ge.fill_grid(my_row, my_col, tab_name, entry)
 
+    #Grid Check Box
+    def grid_Checkbox(self, my_row, my_col, pad_x, pad_y, parent, tab_name):
+        checkbox = Checkbutton(parent)
+        checkbox.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
+        self.ge.fill_grid(my_row, my_col, tab_name, checkbox)
+
     #Grid Button without parent specified
     def grid_Button(self, pack_text, my_row, my_col):
         button = Button(self.screen, text=pack_text)
@@ -229,6 +235,10 @@ class GuiHandler:
                 elif (tab_type == "button" and can_create):
                     #print(tab_script)
                     self.grid_Button_With_Command(tab_text, tab_script, tab_row, tab_col, tab_padx, tab_pady, new_tab, tab_name)
+
+                elif (tab_type == "checkbox" and can_create):
+                    #print(tab_script)
+                    self.grid_Checkbox(tab_row, tab_col, tab_padx, tab_pady, new_tab, tab_name)
 
             #print(tab)
             tab_parent.add(new_tab, text=tab_name)

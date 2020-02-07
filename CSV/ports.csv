@@ -1,4 +1,6 @@
 type,text,row,column,padx,pady,script,description
 label,Port Number,0,0,15,7,,File Location Label
 entry,,0,1,15,7,,Read Entry
+label,Enabled?,1,0,15,7,,Enabled Label
+checkbox,,1,1,15,7,,Enabled Checkbox
 button,Submit,4,0,15,7,self.add_to_output(),Submit Button
