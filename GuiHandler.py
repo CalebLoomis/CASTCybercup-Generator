@@ -175,7 +175,7 @@ class GuiHandler:
 
     def file_selection_box(self):
         #print("I've reached this point.")
-        self.root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("all files","*.*"), ("jpeg files", "*.jpeg")))
+        self.root.filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("all files","*"), ("conf files", "*.conf")))
         return (self.root.filename)
 
     def add_tabs(self, tabs):
