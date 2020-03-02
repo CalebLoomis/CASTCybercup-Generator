@@ -3,13 +3,13 @@ import sys
 if (sys.version_info <= (3, 0)):
   from Tkinter import *
   from check_number import *
-  import ttk, tkFileDialog, GridEditor, CSV_handler
+  import ttk, tkFileDialog, GridEditor, CSV_handler, MyCheckbox
 else:
   from tkinter import *
   from tkinter import ttk as ttk
   from tkinter import filedialog as tkFileDialog
   from check_number import *
-  import GridEditor, CSV_handler
+  import GridEditor, CSV_handler, MyCheckbox
 
 class GuiHandler:
     ge = GridEditor.GridEditor()
@@ -30,19 +30,6 @@ class GuiHandler:
         self.root.geometry(str(width) + "x" + str(height))
 
     #Tries to execute file. Failing that, will attempt to run a cmd ad-hoc
-    def run_code(self, cmd):
-        try:
-            with open (cmd) as c:
-                code = compile(c.read(), cmd, 'exec')
-                #TODO: setup run_code to accept global and local vars
-                #exec(code, global_vars, local_vars)
-                exec(code, globals())
-        except IOError:
-            try:
-                exec(cmd)
-            except NameError:
-                print("Error. " + cmd + " not a file or python command.")
-
     #Run_code with knowledge of its position.
     def run_code(self, cmd, row, col):
         try:
@@ -106,10 +93,10 @@ class GuiHandler:
 
     #Grid Check Box
     def grid_Checkbox(self, my_row, my_col, pad_x, pad_y, parent, tab_name):
-        var = IntVar()
-        checkbox = Checkbutton(parent, variable=var)
+        check_obj = MyCheckbox.MyCheckbox(parent)
+        checkbox = check_obj.get_obj()
         checkbox.grid(row=my_row, column=my_col, padx=pad_x, pady=pad_y)
-        self.ge.fill_grid(my_row, my_col, tab_name, checkbox)
+        self.ge.fill_grid(my_row, my_col, tab_name, check_obj)
 
     #Grid Button without parent specified
     def grid_Button(self, pack_text, my_row, my_col):

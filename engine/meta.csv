@@ -1,2 +1,3 @@
-"description","filename","script"
-"Permissions","permissions.csv","modules/perms.py"
+description,filename,script
+Permissions,permissions.csv,modules/perms.py
+Ports,ports.csv,modules/ports.py

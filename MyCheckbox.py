@@ -6,19 +6,22 @@ else:
   import tkinter as Tkinter
 
 class MyCheckbox:
-    checked_var = Tkinter.BooleanVar()
-    root=Tkinter.Tk()
     row = 0
     col = 0
     tab=""
     tkObject = None
 
-    def __init__ (self, parent=self.root, row=self.row, col = self.col, tab_name=self.tab, tkObj = self.tkObject):
+    def __init__ (self, parent, row=None, col =None, tab_name=None):
         self.root = parent
+        self.checked_var = Tkinter.BooleanVar()
+        self.row = row
+        self.col = col
+        self.tab = tab_name
+        self.tkObject = Tkinter.Checkbutton(parent, variable = self.checked_var)
 
 
     def get_obj(self):
-        return tkObject
+        return self.tkObject
 
-    def get_status:
-        return checked_var.get()
+    def get_status(self):
+        return self.checked_var.get()

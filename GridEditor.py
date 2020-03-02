@@ -2,9 +2,10 @@ import sys
 #from datetime import datetime
 
 if (sys.version_info <= (3, 0)):
-  import Tkinter
+  import Tkinter, MyCheckbox
 else:
   import tkinter as Tkinter
+  import MyCheckbox
 
 
 class GridEditor:
@@ -109,13 +110,12 @@ class GridEditor:
         for i in current_list:
             for j in range (len(i)):
                 if (isinstance(i[j], Tkinter.Label) and len(i) > j):
-                    if (isinstance(i[j + 1], Tkinter.Checkbutton)):
+                    print (i[j]['text'])
+                    if (isinstance(i[j + 1], MyCheckbox.MyCheckbox)):
                         key = i[j]["text"]
                         data = i[j+1]
-
-                        print (data['variable'].get())
 #                        output[i[j]]
-                        output[key] = data
+                        output[key] = data.get_status()
                         #print (output)
         return (output)
 
